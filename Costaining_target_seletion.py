@@ -38,10 +38,12 @@ for index, row in mito_proteins.iterrows():
 variation_mask = (mito_proteins["Single-cell variation intensity"].str.contains("Mitochondria")) | (mito_proteins["Single-cell variation spatial"].str.contains("Mitochondria"))
 variable_mito_proteins = mito_proteins[variation_mask]
 variable_mito_proteins.to_csv("Variable mitochondria proteins.csv")
+
 #%% Get stable mitochondria proteins
 stable_mask = ~variation_mask
 stable_mito_proteins = mito_proteins[stable_mask]
 stable_mito_proteins.to_csv("Stable mitochondria proteins.csv")
+
 #%% Stable mitochondria proteins but variable in other compartments
 other_variable_proteins = stable_mito_proteins[(stable_mito_proteins["Single-cell variation intensity"].notna()) | (stable_mito_proteins["Single-cell variation spatial"].notna())]
 other_variable_proteins.to_csv("Other variable proteins.csv")
